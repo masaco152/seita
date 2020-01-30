@@ -1,4 +1,5 @@
 <?php
+
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ Route::get('/', function () {
  * 新タスク追加
  */
 Route::post('/task', function (Request $request) {
-    $validator = Validator::make($request->all(), [
+   $validator = Validator::make($request->all(), [
         'name' => 'required|max:255',
     ]);
 
@@ -26,12 +27,12 @@ Route::post('/task', function (Request $request) {
             ->withInput()
             ->withErrors($validator);
     }
-    
     $task = new Task;
     $task->name = $request->name;
     $task->save();
 
     return redirect('/');
+
 });
 
 /**
@@ -41,5 +42,4 @@ Route::delete('/task/{id}', function ($id) {
     Task::findOrFail($id)->delete();
 
     return redirect('/');
-});
-?>
+});>

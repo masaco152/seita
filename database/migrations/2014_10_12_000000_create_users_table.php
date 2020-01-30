@@ -1,32 +1,36 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
-     * マイグレーション実行
+     * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('users', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
     /**
-     * マイグレーションの巻き戻し
+     * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::drop('tasks');
+        Schema::dropIfExists('users');
     }
 }
-?>
